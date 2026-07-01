@@ -1,0 +1,40 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Team {
+  id    String @id
+  name  String
+  code  String
+  group String
+  flag  String
+}
+
+model Match {
+  id                String   @id
+  type              String
+  group             String?
+  round             String?
+  name              String?
+  homeTeam          String?
+  awayTeam          String?
+  homeScore         Int?
+  awayScore         Int?
+  status            String
+  nextMatchId       String?
+  isHomeInNextMatch Boolean?
+  placeholderHome   String?
+  placeholderAway   String?
+  winner            String?
+  penaltyWinner     String?
+}
