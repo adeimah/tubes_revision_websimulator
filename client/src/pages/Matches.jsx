@@ -48,10 +48,7 @@ function Matches({ GROUPS, matches, setMatches, TEAMS, isAdmin, addToast }) {
       <h2 style={{ fontFamily: "var(--font-heading)", marginBottom: "8px", fontSize: "28px" }}>
         Group Stage Matches
       </h2>
-      <p style={{ color: "var(--text-muted)", marginBottom: "30px", fontSize: "15px" }}>
-        Simulate match outcomes for each group. Update scores in real-time to watch standings recalculate instantly.
-        {!isAdmin && <span style={{ color: "var(--accent)" }}> (Secret admin login required to modify scores)</span>}
-      </p>
+
 
       {/* Group Tabs Navigation (A-L) */}
       <div style={{

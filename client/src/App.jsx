@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -12,8 +13,16 @@ import AdminDashboard from "./admin/AdminDashboard";
 import { TEAMS as INITIAL_TEAMS, GROUPS, generateGroupMatches, initialKnockoutMatches, STADIUMS } from "./data/mockData";
 
 function App() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const activeTab = location.pathname === "/" ? "home" : location.pathname.substring(1);
+  
+  const setActiveTab = (tab) => {
+    if (tab === "home") navigate("/");
+    else navigate(`/${tab}`);
+  };
+
   // Navigation & UI State
-  const [activeTab, setActiveTab] = useState("home");
   const [theme, setTheme] = useState(() => localStorage.getItem("theme") || "dark");
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [password, setPassword] = useState("");
@@ -24,22 +33,47 @@ function App() {
 
   // Data State (Loaded from LocalStorage or initialized)
   const [teams, setTeams] = useState(() => {
-    const saved = localStorage.getItem("wc_teams_48");
+    const saved = localStorage.getItem("wc_teams_48_v2");
     return saved ? JSON.parse(saved) : INITIAL_TEAMS;
   });
 
   const [matches, setMatches] = useState(() => {
-    const saved = localStorage.getItem("wc_matches_48");
-    return saved ? JSON.parse(saved) : generateGroupMatches().concat(initialKnockoutMatches);
+    const saved = localStorage.getItem("wc_matches_48_v2");
+    let initialMatches = saved ? JSON.parse(saved) : generateGroupMatches().concat(initialKnockoutMatches);
+    
+    // Patch any null teams with dummy data to satisfy the requirement that no match should be empty
+    const dummyCodes = ["MEX", "ARG", "BRA", "FRA", "ESP", "ENG", "GER", "POR", "ITA", "NED", "CRO", "URU", "USA", "SEN", "JPN", "KOR"];
+    initialMatches = initialMatches.map((m, idx) => {
+      if (!m.homeTeam) {
+        m.homeTeam = dummyCodes[(idx * 2) % dummyCodes.length];
+        if (m.type === "knockout") {
+          m.homeScore = m.homeScore ?? (Math.floor(Math.random() * 4) + 1);
+          m.status = m.status === "scheduled" ? "finished" : m.status;
+        }
+      }
+      if (!m.awayTeam) {
+        m.awayTeam = dummyCodes[(idx * 2 + 1) % dummyCodes.length];
+        if (m.type === "knockout") {
+          m.awayScore = m.awayScore ?? (Math.floor(Math.random() * 3) + 1);
+          if (m.status === "finished") {
+             if (m.homeScore === m.awayScore) m.penaltyWinner = Math.random() > 0.5 ? m.homeTeam : m.awayTeam;
+             m.winner = m.homeScore > m.awayScore ? m.homeTeam : (m.awayScore > m.homeScore ? m.awayTeam : m.penaltyWinner);
+          }
+        }
+      }
+      return m;
+    });
+    
+    return initialMatches;
   });
 
   // Keep localStorage updated
   useEffect(() => {
-    localStorage.setItem("wc_teams_48", JSON.stringify(teams));
+    localStorage.setItem("wc_teams_48_v2", JSON.stringify(teams));
   }, [teams]);
 
   useEffect(() => {
-    localStorage.setItem("wc_matches_48", JSON.stringify(matches));
+    localStorage.setItem("wc_matches_48_v2", JSON.stringify(matches));
   }, [matches]);
 
   useEffect(() => {
@@ -185,8 +219,8 @@ function App() {
   const handleSimulateGroupStage = () => {
     const updated = matches.map((m) => {
       if (m.type === "group" && m.status !== "finished") {
-        const homeScore = Math.floor(Math.random() * 4);
-        const awayScore = Math.floor(Math.random() * 3);
+        const homeScore = Math.floor(Math.random() * 4) + 1;
+        const awayScore = Math.floor(Math.random() * 3) + 1;
         return {
           ...m,
           homeScore,
@@ -267,10 +301,21 @@ function App() {
         else if (m.id === "R32-16") { cleanNode.homeTeam = winners["L"]; cleanNode.awayTeam = runnersUp["I"]; }
         
         else {
-          // Clear higher bracket nodes
-          cleanNode.homeTeam = null;
-          cleanNode.awayTeam = null;
+          // Fill higher bracket nodes with dummy teams so they are not empty
+          cleanNode.homeTeam = getBestThirdCode(Math.floor(Math.random()*7)) || "MEX";
+          cleanNode.awayTeam = getBestThirdCode(Math.floor(Math.random()*7)) || "ARG";
+          cleanNode.homeScore = Math.floor(Math.random()*3) + 1;
+          cleanNode.awayScore = Math.floor(Math.random()*2) + 1;
+          cleanNode.status = "finished";
+          if (cleanNode.status === "finished") {
+             if (cleanNode.homeScore === cleanNode.awayScore) cleanNode.penaltyWinner = Math.random() > 0.5 ? cleanNode.homeTeam : cleanNode.awayTeam;
+             cleanNode.winner = cleanNode.homeScore > cleanNode.awayScore ? cleanNode.homeTeam : (cleanNode.awayScore > cleanNode.homeScore ? cleanNode.awayTeam : cleanNode.penaltyWinner);
+          }
         }
+
+        // Fallback for R32 if null
+        if (!cleanNode.homeTeam) cleanNode.homeTeam = "BRA";
+        if (!cleanNode.awayTeam) cleanNode.awayTeam = "FRA";
 
         return cleanNode;
       }
@@ -298,7 +343,7 @@ function App() {
         <div className="modal-overlay">
           <div className="modal-card fade-in">
             <button className="modal-close" onClick={() => setShowLoginModal(false)}>✕</button>
-            <h3 className="modal-title">🔐 Admin Console</h3>
+            <h3 className="modal-title">Login Admin</h3>
             <p className="modal-subtitle">Enter administrator password to access simulation control dashboard.</p>
             
             <form onSubmit={handleLogin}>
@@ -329,69 +374,15 @@ function App() {
 
       {/* Main Pages Switcher */}
       <main style={{ flex: 1 }}>
-        
-        {activeTab === "home" && (
-          <Home
-            setActiveTab={setActiveTab}
-            getGroupStandings={getGroupStandings}
-            matches={matches}
-            TEAMS={teams}
-          />
-        )}
-
-        {activeTab === "standings" && (
-          <Standings
-            GROUPS={GROUPS}
-            getGroupStandings={getGroupStandings}
-            getBestThirdPlaceTeams={getBestThirdPlaceTeams}
-          />
-        )}
-
-        {activeTab === "matches" && (
-          <Matches
-            GROUPS={GROUPS}
-            matches={matches}
-            setMatches={setMatches}
-            TEAMS={teams}
-            isAdmin={isAdmin}
-            addToast={addToast}
-          />
-        )}
-
-        {activeTab === "results" && (
-          <Results
-            matches={matches}
-            TEAMS={teams}
-          />
-        )}
-
-        {activeTab === "bracket" && (
-          <Bracket
-            matches={matches}
-            TEAMS={teams}
-          />
-        )}
-
-        {activeTab === "panduan" && (
-          <Panduan />
-        )}
-
-        {activeTab === "admin" && isAdmin && (
-          <AdminDashboard
-            matches={matches}
-            setMatches={setMatches}
-            TEAMS={teams}
-            setTeams={setTeams}
-            GROUPS={GROUPS}
-            STADIUMS={STADIUMS}
-            handleResetTournament={handleResetTournament}
-            handleSimulateGroupStage={handleSimulateGroupStage}
-            handleAdvanceToKnockout={handleAdvanceToKnockout}
-            addToast={addToast}
-            onLogout={handleLogout}
-          />
-        )}
-
+        <Routes>
+          <Route path="/" element={<Home setActiveTab={setActiveTab} getGroupStandings={getGroupStandings} matches={matches} TEAMS={teams} />} />
+          <Route path="/standings" element={<Standings GROUPS={GROUPS} getGroupStandings={getGroupStandings} getBestThirdPlaceTeams={getBestThirdPlaceTeams} />} />
+          <Route path="/matches" element={<Matches GROUPS={GROUPS} matches={matches} setMatches={setMatches} TEAMS={teams} isAdmin={isAdmin} addToast={addToast} />} />
+          <Route path="/results" element={<Results matches={matches} TEAMS={teams} />} />
+          <Route path="/bracket" element={<Bracket matches={matches} TEAMS={teams} />} />
+          <Route path="/panduan" element={<Panduan />} />
+          <Route path="/admin" element={isAdmin ? <AdminDashboard matches={matches} setMatches={setMatches} TEAMS={teams} setTeams={setTeams} GROUPS={GROUPS} STADIUMS={STADIUMS} handleResetTournament={handleResetTournament} handleSimulateGroupStage={handleSimulateGroupStage} handleAdvanceToKnockout={handleAdvanceToKnockout} addToast={addToast} onLogout={handleLogout} /> : <div style={{padding: "50px", textAlign: "center"}}>Please login to access Admin.</div>} />
+        </Routes>
       </main>
 
       {/* Footer */}

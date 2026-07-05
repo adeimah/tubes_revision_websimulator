@@ -92,6 +92,42 @@ function Panduan() {
           </ul>
         </div>
 
+        {/* Card 3: Ekosistem IT */}
+        <div className="glass" style={{ padding: "24px", borderRadius: "12px", border: "1px solid var(--border)", background: "var(--card)" }}>
+          <h3 style={{ fontFamily: "var(--font-heading)", fontSize: "20px", color: "var(--secondary)", marginBottom: "16px", borderBottom: "1px solid var(--border)", paddingBottom: "8px" }}>
+            💻 Peran Ekosistem IT
+          </h3>
+          <p style={{ color: "var(--text-muted)", fontSize: "14px", marginBottom: "16px" }}>
+            Dalam pengembangan dan pemeliharaan simulator ini, berbagai role IT memastikan tidak ada eror, kode berjalan efisien, dan aplikasi berjalan dengan baik:
+          </p>
+          <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "12px", fontSize: "14px" }}>
+            <li style={{ display: "flex", gap: "10px" }}>
+              <span style={{ color: "var(--accent)" }}>👨‍💻</span>
+              <span><strong>Developer (Frontend/Backend)</strong>: Menulis kode yang efisien, memastikan logika turnamen berjalan sempurna tanpa bug.</span>
+            </li>
+            <li style={{ display: "flex", gap: "10px" }}>
+              <span style={{ color: "var(--accent)" }}>🔍</span>
+              <span><strong>Quality Assurance (QA)</strong>: Menguji setiap fitur, mencari celah eror, memastikan tidak ada eror.</span>
+            </li>
+            <li style={{ display: "flex", gap: "10px" }}>
+              <span style={{ color: "var(--accent)" }}>⚙️</span>
+              <span><strong>DevOps / SysAdmin</strong>: Mengatur deployment, dan memastikan aplikasi memiliki performa tinggi dan berjalan dengan baik.</span>
+            </li>
+            <li style={{ display: "flex", gap: "10px" }}>
+              <span style={{ color: "var(--accent)" }}>🎨</span>
+              <span><strong>UI/UX Designer</strong>: Merancang antarmuka yang intuitif dan memukau.</span>
+            </li>
+            <li style={{ display: "flex", gap: "10px" }}>
+              <span style={{ color: "var(--accent)" }}>📊</span>
+              <span><strong>System Analyst</strong>: Menganalisis kebutuhan sistem dan memastikan arsitektur sesuai kriteria.</span>
+            </li>
+            <li style={{ display: "flex", gap: "10px" }}>
+              <span style={{ color: "var(--accent)" }}>📋</span>
+              <span><strong>Project Manager</strong>: Mengoordinasikan seluruh tim agar bekerja sama secara efisien.</span>
+            </li>
+          </ul>
+        </div>
+
       </div>
     </div>
   );

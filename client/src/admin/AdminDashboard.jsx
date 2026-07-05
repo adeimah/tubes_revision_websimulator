@@ -10,7 +10,8 @@ function AdminDashboard({
   handleResetTournament,
   handleSimulateGroupStage,
   handleAdvanceToKnockout,
-  addToast
+  addToast,
+  onLogout
 }) {
   const [activeAdminTab, setActiveAdminTab] = useState("matches");
 
@@ -223,25 +224,28 @@ function AdminDashboard({
       </p>
 
       {/* Admin Subtabs */}
-      <div style={{ display: "flex", gap: "8px", borderBottom: "1px solid var(--border)", paddingBottom: "12px", marginBottom: "30px" }}>
-        <button
-          className={`filter-tab ${activeAdminTab === "matches" ? "active" : ""}`}
-          onClick={() => setActiveAdminTab("matches")}
-        >
-          ⚽ Edit Matches & Schedules
-        </button>
-        <button
-          className={`filter-tab ${activeAdminTab === "teams" ? "active" : ""}`}
-          onClick={() => setActiveAdminTab("teams")}
-        >
-          🚩 Team Editor (Add/Edit/Delete)
-        </button>
-        <button
-          className={`filter-tab ${activeAdminTab === "controls" ? "active" : ""}`}
-          onClick={() => setActiveAdminTab("controls")}
-        >
-          ⚙️ Controls Center
-        </button>
+      <div style={{ display: "flex", gap: "8px", borderBottom: "1px solid var(--border)", paddingBottom: "12px", marginBottom: "30px", justifyContent: "space-between", alignItems: "center" }}>
+        <div style={{ display: "flex", gap: "8px" }}>
+          <button
+            className={`filter-tab ${activeAdminTab === "matches" ? "active" : ""}`}
+            onClick={() => setActiveAdminTab("matches")}
+          >
+            ⚽ Edit Matches & Schedules
+          </button>
+          <button
+            className={`filter-tab ${activeAdminTab === "teams" ? "active" : ""}`}
+            onClick={() => setActiveAdminTab("teams")}
+          >
+            🚩 Team Editor (Add/Edit/Delete)
+          </button>
+          <button
+            className={`filter-tab ${activeAdminTab === "controls" ? "active" : ""}`}
+            onClick={() => setActiveAdminTab("controls")}
+          >
+            ⚙️ Controls Center
+          </button>
+        </div>
+        <button onClick={onLogout} className="btn btn-secondary" style={{ padding: "6px 12px", fontSize: "12px", color: "white", backgroundColor: "var(--danger)", border: "none" }}>Logout</button>
       </div>
 
       {/* TAB: Edit Matches */}

@@ -4,30 +4,22 @@ function Home({ setActiveTab, getGroupStandings, matches, TEAMS }) {
   // 1. Group Standings Previews for Group A, B, C
   const previewGroups = ["A", "B", "C"];
 
-  // 2. Recent Matches Preview
-  // We can show some notable matches: Mexico vs Japan (Group A), Canada vs Germany (Group E - wait, Canada is B, Germany is E; let's show some scheduled or finished matches)
-  // Let's filter some interesting matches
-  const previewMatches = matches.slice(0, 4); // Just show the first 4 group stage matches for preview
+  // 2. Recent Matches Preview: Only Group A, 4 matches
+  const previewMatches = matches.filter(m => m.group === "A").slice(0, 4);
 
   return (
     <div className="fade-in">
       {/* Hero Section */}
-      <section className="hero-section">
+      <section className="hero-section" style={{ minHeight: "60vh", padding: "60px 0" }}>
         <div className="hero-bg-overlay"></div>
-        <div className="container">
-          <span className="hero-badge">🏆 OFFICIAL 48-TEAM SIMULATOR</span>
-          <h2 className="hero-title">FIFA WORLD CUP 2026 SIMULATOR</h2>
-          <p className="hero-subtitle">
-            Predict group stage results, simulate team scores, generate knockout brackets, and discover alternate tournament outcomes in real-time.
-          </p>
-          <div className="hero-actions">
-            <button className="btn btn-primary" onClick={() => setActiveTab("matches")}>
-              Start Simulation
-            </button>
-            <button className="btn btn-secondary" onClick={() => setActiveTab("matches")}>
-              View Matches
-            </button>
+        <div className="container" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "16px", marginBottom: "20px" }}>
+            <h2 className="hero-title" style={{ maxWidth: "800px", textAlign: "center", margin: 0 }}>FIFA WORLD CUP 2026 SIMULATOR</h2>
+            <div style={{ fontSize: "40px" }}>⚽</div>
           </div>
+          <p style={{ maxWidth: "600px", textAlign: "center", marginTop: "16px", fontSize: "16px", color: "var(--text-muted)", lineHeight: "1.6" }}>
+            Experience the ultimate virtual tournament. Simulate matches, follow your favorite teams, and see who will conquer the world in the FIFA World Cup 2026 Simulator!
+          </p>
         </div>
       </section>
 
@@ -40,8 +32,8 @@ function Home({ setActiveTab, getGroupStandings, matches, TEAMS }) {
             <h3 style={{ fontFamily: "var(--font-heading)", fontSize: "22px", borderBottom: "2px solid var(--accent)", paddingBottom: "4px" }}>
               📊 Group Standings Preview
             </h3>
-            <button className="btn btn-secondary" style={{ padding: "6px 16px", fontSize: "14px" }} onClick={() => setActiveTab("standings")}>
-              View All Groups →
+            <button className="btn btn-secondary" style={{ padding: "6px 16px", fontSize: "14px", color: "black", backgroundColor: "white", fontWeight: "bold" }} onClick={() => setActiveTab("standings")}>
+              Pilih Selengkapnya
             </button>
           </div>
           
@@ -97,8 +89,8 @@ function Home({ setActiveTab, getGroupStandings, matches, TEAMS }) {
             <h3 style={{ fontFamily: "var(--font-heading)", fontSize: "22px", borderBottom: "2px solid var(--accent)", paddingBottom: "4px" }}>
               ⚽ Matches Preview
             </h3>
-            <button className="btn btn-secondary" style={{ padding: "6px 16px", fontSize: "14px" }} onClick={() => setActiveTab("matches")}>
-              View All Matches →
+            <button className="btn btn-secondary" style={{ padding: "6px 16px", fontSize: "14px", color: "black", backgroundColor: "white", fontWeight: "bold" }} onClick={() => setActiveTab("matches")}>
+              Pilih Selengkapnya
             </button>
           </div>
 
@@ -144,8 +136,8 @@ function Home({ setActiveTab, getGroupStandings, matches, TEAMS }) {
             <h3 style={{ fontFamily: "var(--font-heading)", fontSize: "22px", borderBottom: "2px solid var(--accent)", paddingBottom: "4px" }}>
               🏆 Knockout Bracket Preview
             </h3>
-            <button className="btn btn-secondary" style={{ padding: "6px 16px", fontSize: "14px" }} onClick={() => setActiveTab("bracket")}>
-              View Full Bracket →
+            <button className="btn btn-secondary" style={{ padding: "6px 16px", fontSize: "14px", color: "black", backgroundColor: "white", fontWeight: "bold" }} onClick={() => setActiveTab("bracket")}>
+              Pilih Selengkapnya
             </button>
           </div>
 
@@ -195,38 +187,27 @@ function Home({ setActiveTab, getGroupStandings, matches, TEAMS }) {
           borderRadius: "12px",
           border: "1px solid var(--border)",
           textAlign: "left",
-          background: "linear-gradient(135deg, #08142D 0%, #172554 100%)",
-          color: "white"
+          background: "var(--bg)", /* Matches master color background (abu-abu/greyish in light mode, dark in dark mode) */
+          color: "var(--text-main)"
         }}>
-          <h3 style={{ fontFamily: "var(--font-heading)", fontSize: "24px", color: "var(--accent)", marginBottom: "16px" }}>
-            📋 Tournament Format Rules
+          <h3 style={{ fontFamily: "var(--font-heading)", fontSize: "24px", color: "var(--text-main)", marginBottom: "16px" }}>
+            Tournament Format Rules
           </h3>
           <ul style={{
-            listStyle: "none",
+            listStyle: "disc",
+            marginLeft: "20px",
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
             gap: "16px",
             marginBottom: "24px"
           }}>
-            <li style={{ display: "flex", gap: "10px", fontSize: "15px" }}>
-              <span style={{ color: "var(--accent)" }}>⚽</span>
-              <span>48 teams compete across 12 groups (A-L).</span>
-            </li>
-            <li style={{ display: "flex", gap: "10px", fontSize: "15px" }}>
-              <span style={{ color: "var(--accent)" }}>🛡️</span>
-              <span>Top 2 teams qualify automatically.</span>
-            </li>
-            <li style={{ display: "flex", gap: "10px", fontSize: "15px" }}>
-              <span style={{ color: "var(--accent)" }}>🌟</span>
-              <span>Best 8 third-place teams advance to playoffs.</span>
-            </li>
-            <li style={{ display: "flex", gap: "10px", fontSize: "15px" }}>
-              <span style={{ color: "var(--accent)" }}>⚡</span>
-              <span>Knockout stage begins with Round of 32.</span>
-            </li>
+            <li style={{ fontSize: "15px" }}>48 teams compete across 12 groups (A-L).</li>
+            <li style={{ fontSize: "15px" }}>Top 2 teams qualify automatically.</li>
+            <li style={{ fontSize: "15px" }}>Best 8 third-place teams advance to playoffs.</li>
+            <li style={{ fontSize: "15px" }}>Knockout stage begins with Round of 32.</li>
           </ul>
-          <button className="btn btn-primary" onClick={() => setActiveTab("panduan")}>
-            Learn More
+          <button className="btn btn-secondary" style={{ padding: "8px 20px", fontSize: "14px", color: "black", backgroundColor: "white", fontWeight: "bold", border: "1px solid #ccc" }} onClick={() => setActiveTab("panduan")}>
+            Pilih Selengkapnya
           </button>
         </div>
 

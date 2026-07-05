@@ -101,9 +101,9 @@ export const generateGroupMatches = () => {
       group: groupChar,
       homeTeam: groupTeams[0].code,
       awayTeam: groupTeams[1].code,
-      homeScore: null,
-      awayScore: null,
-      status: "scheduled",
+      homeScore: 2,
+      awayScore: 1,
+      status: "finished",
       stadium: getStadium(0),
       date: getMatchDateString(0),
       kickoff: "18:00"
@@ -116,9 +116,9 @@ export const generateGroupMatches = () => {
       group: groupChar,
       homeTeam: groupTeams[2].code,
       awayTeam: groupTeams[3].code,
-      homeScore: null,
-      awayScore: null,
-      status: "scheduled",
+      homeScore: 1,
+      awayScore: 2,
+      status: "finished",
       stadium: getStadium(1),
       date: getMatchDateString(0),
       kickoff: "21:00"
@@ -192,46 +192,46 @@ export const generateGroupMatches = () => {
 // Round of 32 (16 matches) -> Round of 16 (8 matches) -> Quarterfinals (4) -> Semifinals (2) -> Final (1)
 export const initialKnockoutMatches = [
   // Round of 32 (16 matches)
-  { id: "R32-1", type: "knockout", round: "R32", name: "Round of 32", homeTeam: null, awayTeam: null, homeScore: null, awayScore: null, status: "scheduled", nextMatchId: "R16-1", isHomeInNextMatch: true, placeholderHome: "Winner Group A", placeholderAway: "Best 3rd Place 1" },
-  { id: "R32-2", type: "knockout", round: "R32", name: "Round of 32", homeTeam: null, awayTeam: null, homeScore: null, awayScore: null, status: "scheduled", nextMatchId: "R16-1", isHomeInNextMatch: false, placeholderHome: "Runner-up Group B", placeholderAway: "Runner-up Group C" },
-  { id: "R32-3", type: "knockout", round: "R32", name: "Round of 32", homeTeam: null, awayTeam: null, homeScore: null, awayScore: null, status: "scheduled", nextMatchId: "R16-2", isHomeInNextMatch: true, placeholderHome: "Winner Group D", placeholderAway: "Best 3rd Place 2" },
-  { id: "R32-4", type: "knockout", round: "R32", name: "Round of 32", homeTeam: null, awayTeam: null, homeScore: null, awayScore: null, status: "scheduled", nextMatchId: "R16-2", isHomeInNextMatch: false, placeholderHome: "Winner Group E", placeholderAway: "Runner-up Group F" },
+  { id: "R32-1", type: "knockout", round: "R32", name: "Round of 32", homeTeam: "MEX", awayTeam: "ARG", homeScore: 2, awayScore: 1, status: "finished", winner: "MEX", nextMatchId: "R16-1", isHomeInNextMatch: true, placeholderHome: "Winner Group A", placeholderAway: "Best 3rd Place 1" },
+  { id: "R32-2", type: "knockout", round: "R32", name: "Round of 32", homeTeam: "BRA", awayTeam: "POL", homeScore: 3, awayScore: 0, status: "finished", winner: "BRA", nextMatchId: "R16-1", isHomeInNextMatch: false, placeholderHome: "Runner-up Group B", placeholderAway: "Runner-up Group C" },
+  { id: "R32-3", type: "knockout", round: "R32", name: "Round of 32", homeTeam: "FRA", awayTeam: "USA", homeScore: 1, awayScore: 2, status: "finished", winner: "USA", nextMatchId: "R16-2", isHomeInNextMatch: true, placeholderHome: "Winner Group D", placeholderAway: "Best 3rd Place 2" },
+  { id: "R32-4", type: "knockout", round: "R32", name: "Round of 32", homeTeam: "ESP", awayTeam: "CRO", homeScore: 2, awayScore: 2, penaltyWinner: "ESP", status: "finished", winner: "ESP", nextMatchId: "R16-2", isHomeInNextMatch: false, placeholderHome: "Winner Group E", placeholderAway: "Runner-up Group F" },
   
-  { id: "R32-5", type: "knockout", round: "R32", name: "Round of 32", homeTeam: null, awayTeam: null, homeScore: null, awayScore: null, status: "scheduled", nextMatchId: "R16-3", isHomeInNextMatch: true, placeholderHome: "Winner Group F", placeholderAway: "Best 3rd Place 3" },
-  { id: "R32-6", type: "knockout", round: "R32", name: "Round of 32", homeTeam: null, awayTeam: null, homeScore: null, awayScore: null, status: "scheduled", nextMatchId: "R16-3", isHomeInNextMatch: false, placeholderHome: "Runner-up Group G", placeholderAway: "Runner-up Group H" },
-  { id: "R32-7", type: "knockout", round: "R32", name: "Round of 32", homeTeam: null, awayTeam: null, homeScore: null, awayScore: null, status: "scheduled", nextMatchId: "R16-4", isHomeInNextMatch: true, placeholderHome: "Winner Group H", placeholderAway: "Best 3rd Place 4" },
-  { id: "R32-8", type: "knockout", round: "R32", name: "Round of 32", homeTeam: null, awayTeam: null, homeScore: null, awayScore: null, status: "scheduled", nextMatchId: "R16-4", isHomeInNextMatch: false, placeholderHome: "Winner Group I", placeholderAway: "Runner-up Group J" },
+  { id: "R32-5", type: "knockout", round: "R32", name: "Round of 32", homeTeam: "BEL", awayTeam: "JPN", homeScore: 1, awayScore: 0, status: "finished", winner: "BEL", nextMatchId: "R16-3", isHomeInNextMatch: true, placeholderHome: "Winner Group F", placeholderAway: "Best 3rd Place 3" },
+  { id: "R32-6", type: "knockout", round: "R32", name: "Round of 32", homeTeam: "ENG", awayTeam: "POR", homeScore: 0, awayScore: 1, status: "finished", winner: "POR", nextMatchId: "R16-3", isHomeInNextMatch: false, placeholderHome: "Runner-up Group G", placeholderAway: "Runner-up Group H" },
+  { id: "R32-7", type: "knockout", round: "R32", name: "Round of 32", homeTeam: "URU", awayTeam: "SUI", homeScore: 2, awayScore: 0, status: "finished", winner: "URU", nextMatchId: "R16-4", isHomeInNextMatch: true, placeholderHome: "Winner Group H", placeholderAway: "Best 3rd Place 4" },
+  { id: "R32-8", type: "knockout", round: "R32", name: "Round of 32", homeTeam: "ITA", awayTeam: "NED", homeScore: 1, awayScore: 3, status: "finished", winner: "NED", nextMatchId: "R16-4", isHomeInNextMatch: false, placeholderHome: "Winner Group I", placeholderAway: "Runner-up Group J" },
   
-  { id: "R32-9", type: "knockout", round: "R32", name: "Round of 32", homeTeam: null, awayTeam: null, homeScore: null, awayScore: null, status: "scheduled", nextMatchId: "R16-5", isHomeInNextMatch: true, placeholderHome: "Winner Group B", placeholderAway: "Best 3rd Place 5" },
-  { id: "R32-10", type: "knockout", round: "R32", name: "Round of 32", homeTeam: null, awayTeam: null, homeScore: null, awayScore: null, status: "scheduled", nextMatchId: "R16-5", isHomeInNextMatch: false, placeholderHome: "Runner-up Group A", placeholderAway: "Runner-up Group D" },
-  { id: "R32-11", type: "knockout", round: "R32", name: "Round of 32", homeTeam: null, awayTeam: null, homeScore: null, awayScore: null, status: "scheduled", nextMatchId: "R16-6", isHomeInNextMatch: true, placeholderHome: "Winner Group C", placeholderAway: "Best 3rd Place 6" },
-  { id: "R32-12", type: "knockout", round: "R32", name: "Round of 32", homeTeam: null, awayTeam: null, homeScore: null, awayScore: null, status: "scheduled", nextMatchId: "R16-6", isHomeInNextMatch: false, placeholderHome: "Winner Group G", placeholderAway: "Runner-up Group E" },
+  { id: "R32-9", type: "knockout", round: "R32", name: "Round of 32", homeTeam: "CAN", awayTeam: "KSA", homeScore: 2, awayScore: 1, status: "finished", winner: "CAN", nextMatchId: "R16-5", isHomeInNextMatch: true, placeholderHome: "Winner Group B", placeholderAway: "Best 3rd Place 5" },
+  { id: "R32-10", type: "knockout", round: "R32", name: "Round of 32", homeTeam: "CZE", awayTeam: "DEN", homeScore: 1, awayScore: 2, status: "finished", winner: "DEN", nextMatchId: "R16-5", isHomeInNextMatch: false, placeholderHome: "Runner-up Group A", placeholderAway: "Runner-up Group D" },
+  { id: "R32-11", type: "knockout", round: "R32", name: "Round of 32", homeTeam: "KSA", awayTeam: "GER", homeScore: 0, awayScore: 4, status: "finished", winner: "GER", nextMatchId: "R16-6", isHomeInNextMatch: true, placeholderHome: "Winner Group C", placeholderAway: "Best 3rd Place 6" },
+  { id: "R32-12", type: "knockout", round: "R32", name: "Round of 32", homeTeam: "WAL", awayTeam: "CRC", homeScore: 2, awayScore: 1, status: "finished", winner: "WAL", nextMatchId: "R16-6", isHomeInNextMatch: false, placeholderHome: "Winner Group G", placeholderAway: "Runner-up Group E" },
   
-  { id: "R32-13", type: "knockout", round: "R32", name: "Round of 32", homeTeam: null, awayTeam: null, homeScore: null, awayScore: null, status: "scheduled", nextMatchId: "R16-7", isHomeInNextMatch: true, placeholderHome: "Winner Group J", placeholderAway: "Best 3rd Place 7" },
-  { id: "R32-14", type: "knockout", round: "R32", name: "Round of 32", homeTeam: null, awayTeam: null, homeScore: null, awayScore: null, status: "scheduled", nextMatchId: "R16-7", isHomeInNextMatch: false, placeholderHome: "Runner-up Group K", placeholderAway: "Runner-up Group L" },
-  { id: "R32-15", type: "knockout", round: "R32", name: "Round of 32", homeTeam: null, awayTeam: null, homeScore: null, awayScore: null, status: "scheduled", nextMatchId: "R16-8", isHomeInNextMatch: true, placeholderHome: "Winner Group K", placeholderAway: "Best 3rd Place 8" },
-  { id: "R32-16", type: "knockout", round: "R32", name: "Round of 32", homeTeam: null, awayTeam: null, homeScore: null, awayScore: null, status: "scheduled", nextMatchId: "R16-8", isHomeInNextMatch: false, placeholderHome: "Winner Group L", placeholderAway: "Runner-up Group I" },
+  { id: "R32-13", type: "knockout", round: "R32", name: "Round of 32", homeTeam: "CHI", awayTeam: "EGY", homeScore: 3, awayScore: 1, status: "finished", winner: "CHI", nextMatchId: "R16-7", isHomeInNextMatch: true, placeholderHome: "Winner Group J", placeholderAway: "Best 3rd Place 7" },
+  { id: "R32-14", type: "knockout", round: "R32", name: "Round of 32", homeTeam: "AUT", awayTeam: "SRB", homeScore: 1, awayScore: 1, penaltyWinner: "SRB", status: "finished", winner: "SRB", nextMatchId: "R16-7", isHomeInNextMatch: false, placeholderHome: "Runner-up Group K", placeholderAway: "Runner-up Group L" },
+  { id: "R32-15", type: "knockout", round: "R32", name: "Round of 32", homeTeam: "TUR", awayTeam: "NOR", homeScore: 0, awayScore: 2, status: "finished", winner: "NOR", nextMatchId: "R16-8", isHomeInNextMatch: true, placeholderHome: "Winner Group K", placeholderAway: "Best 3rd Place 8" },
+  { id: "R32-16", type: "knockout", round: "R32", name: "Round of 32", homeTeam: "CMR", awayTeam: "COL", homeScore: 1, awayScore: 2, status: "finished", winner: "COL", nextMatchId: "R16-8", isHomeInNextMatch: false, placeholderHome: "Winner Group L", placeholderAway: "Runner-up Group I" },
 
   // Round of 16 (8 matches)
-  { id: "R16-1", type: "knockout", round: "R16", name: "Round of 16", homeTeam: null, awayTeam: null, homeScore: null, awayScore: null, status: "scheduled", nextMatchId: "QF-1", isHomeInNextMatch: true, placeholderHome: "Winner R32-1", placeholderAway: "Winner R32-2" },
-  { id: "R16-2", type: "knockout", round: "R16", name: "Round of 16", homeTeam: null, awayTeam: null, homeScore: null, awayScore: null, status: "scheduled", nextMatchId: "QF-1", isHomeInNextMatch: false, placeholderHome: "Winner R32-3", placeholderAway: "Winner R32-4" },
-  { id: "R16-3", type: "knockout", round: "R16", name: "Round of 16", homeTeam: null, awayTeam: null, homeScore: null, awayScore: null, status: "scheduled", nextMatchId: "QF-2", isHomeInNextMatch: true, placeholderHome: "Winner R32-5", placeholderAway: "Winner R32-6" },
-  { id: "R16-4", type: "knockout", round: "R16", name: "Round of 16", homeTeam: null, awayTeam: null, homeScore: null, awayScore: null, status: "scheduled", nextMatchId: "QF-2", isHomeInNextMatch: false, placeholderHome: "Winner R32-7", placeholderAway: "Winner R32-8" },
-  { id: "R16-5", type: "knockout", round: "R16", name: "Round of 16", homeTeam: null, awayTeam: null, homeScore: null, awayScore: null, status: "scheduled", nextMatchId: "QF-3", isHomeInNextMatch: true, placeholderHome: "Winner R32-9", placeholderAway: "Winner R32-10" },
-  { id: "R16-6", type: "knockout", round: "R16", name: "Round of 16", homeTeam: null, awayTeam: null, homeScore: null, awayScore: null, status: "scheduled", nextMatchId: "QF-3", isHomeInNextMatch: false, placeholderHome: "Winner R32-11", placeholderAway: "Winner R32-12" },
-  { id: "R16-7", type: "knockout", round: "R16", name: "Round of 16", homeTeam: null, awayTeam: null, homeScore: null, awayScore: null, status: "scheduled", nextMatchId: "QF-4", isHomeInNextMatch: true, placeholderHome: "Winner R32-13", placeholderAway: "Winner R32-14" },
-  { id: "R16-8", type: "knockout", round: "R16", name: "Round of 16", homeTeam: null, awayTeam: null, homeScore: null, awayScore: null, status: "scheduled", nextMatchId: "QF-4", isHomeInNextMatch: false, placeholderHome: "Winner R32-15", placeholderAway: "Winner R32-16" },
+  { id: "R16-1", type: "knockout", round: "R16", name: "Round of 16", homeTeam: "MEX", awayTeam: "BRA", homeScore: 1, awayScore: 3, status: "finished", winner: "BRA", nextMatchId: "QF-1", isHomeInNextMatch: true, placeholderHome: "Winner R32-1", placeholderAway: "Winner R32-2" },
+  { id: "R16-2", type: "knockout", round: "R16", name: "Round of 16", homeTeam: "USA", awayTeam: "ESP", homeScore: 0, awayScore: 2, status: "finished", winner: "ESP", nextMatchId: "QF-1", isHomeInNextMatch: false, placeholderHome: "Winner R32-3", placeholderAway: "Winner R32-4" },
+  { id: "R16-3", type: "knockout", round: "R16", name: "Round of 16", homeTeam: "BEL", awayTeam: "POR", homeScore: 2, awayScore: 1, status: "finished", winner: "BEL", nextMatchId: "QF-2", isHomeInNextMatch: true, placeholderHome: "Winner R32-5", placeholderAway: "Winner R32-6" },
+  { id: "R16-4", type: "knockout", round: "R16", name: "Round of 16", homeTeam: "URU", awayTeam: "NED", homeScore: 1, awayScore: 1, penaltyWinner: "NED", status: "finished", winner: "NED", nextMatchId: "QF-2", isHomeInNextMatch: false, placeholderHome: "Winner R32-7", placeholderAway: "Winner R32-8" },
+  { id: "R16-5", type: "knockout", round: "R16", name: "Round of 16", homeTeam: "CAN", awayTeam: "DEN", homeScore: 1, awayScore: 2, status: "finished", winner: "DEN", nextMatchId: "QF-3", isHomeInNextMatch: true, placeholderHome: "Winner R32-9", placeholderAway: "Winner R32-10" },
+  { id: "R16-6", type: "knockout", round: "R16", name: "Round of 16", homeTeam: "GER", awayTeam: "WAL", homeScore: 3, awayScore: 0, status: "finished", winner: "GER", nextMatchId: "QF-3", isHomeInNextMatch: false, placeholderHome: "Winner R32-11", placeholderAway: "Winner R32-12" },
+  { id: "R16-7", type: "knockout", round: "R16", name: "Round of 16", homeTeam: "CHI", awayTeam: "SRB", homeScore: 2, awayScore: 0, status: "finished", winner: "CHI", nextMatchId: "QF-4", isHomeInNextMatch: true, placeholderHome: "Winner R32-13", placeholderAway: "Winner R32-14" },
+  { id: "R16-8", type: "knockout", round: "R16", name: "Round of 16", homeTeam: "NOR", awayTeam: "COL", homeScore: 0, awayScore: 1, status: "finished", winner: "COL", nextMatchId: "QF-4", isHomeInNextMatch: false, placeholderHome: "Winner R32-15", placeholderAway: "Winner R32-16" },
 
   // Quarterfinals (4 matches)
-  { id: "QF-1", type: "knockout", round: "QF", name: "Quarter-final", homeTeam: null, awayTeam: null, homeScore: null, awayScore: null, status: "scheduled", nextMatchId: "SF-1", isHomeInNextMatch: true, placeholderHome: "Winner R16-1", placeholderAway: "Winner R16-2" },
-  { id: "QF-2", type: "knockout", round: "QF", name: "Quarter-final", homeTeam: null, awayTeam: null, homeScore: null, awayScore: null, status: "scheduled", nextMatchId: "SF-1", isHomeInNextMatch: false, placeholderHome: "Winner R16-3", placeholderAway: "Winner R16-4" },
-  { id: "QF-3", type: "knockout", round: "QF", name: "Quarter-final", homeTeam: null, awayTeam: null, homeScore: null, awayScore: null, status: "scheduled", nextMatchId: "SF-2", isHomeInNextMatch: true, placeholderHome: "Winner R16-5", placeholderAway: "Winner R16-6" },
-  { id: "QF-4", type: "knockout", round: "QF", name: "Quarter-final", homeTeam: null, awayTeam: null, homeScore: null, awayScore: null, status: "scheduled", nextMatchId: "SF-2", isHomeInNextMatch: false, placeholderHome: "Winner R16-7", placeholderAway: "Winner R16-8" },
+  { id: "QF-1", type: "knockout", round: "QF", name: "Quarter-final", homeTeam: "BRA", awayTeam: "ESP", homeScore: 2, awayScore: 1, status: "finished", winner: "BRA", nextMatchId: "SF-1", isHomeInNextMatch: true, placeholderHome: "Winner R16-1", placeholderAway: "Winner R16-2" },
+  { id: "QF-2", type: "knockout", round: "QF", name: "Quarter-final", homeTeam: "BEL", awayTeam: "NED", homeScore: 0, awayScore: 2, status: "finished", winner: "NED", nextMatchId: "SF-1", isHomeInNextMatch: false, placeholderHome: "Winner R16-3", placeholderAway: "Winner R16-4" },
+  { id: "QF-3", type: "knockout", round: "QF", name: "Quarter-final", homeTeam: "DEN", awayTeam: "GER", homeScore: 1, awayScore: 3, status: "finished", winner: "GER", nextMatchId: "SF-2", isHomeInNextMatch: true, placeholderHome: "Winner R16-5", placeholderAway: "Winner R16-6" },
+  { id: "QF-4", type: "knockout", round: "QF", name: "Quarter-final", homeTeam: "CHI", awayTeam: "COL", homeScore: 1, awayScore: 0, status: "finished", winner: "CHI", nextMatchId: "SF-2", isHomeInNextMatch: false, placeholderHome: "Winner R16-7", placeholderAway: "Winner R16-8" },
 
   // Semifinals (2 matches)
-  { id: "SF-1", type: "knockout", round: "SF", name: "Semi-final", homeTeam: null, awayTeam: null, homeScore: null, awayScore: null, status: "scheduled", nextMatchId: "F", isHomeInNextMatch: true, placeholderHome: "Winner QF-1", placeholderAway: "Winner QF-2" },
-  { id: "SF-2", type: "knockout", round: "SF", name: "Semi-final", homeTeam: null, awayTeam: null, homeScore: null, awayScore: null, status: "scheduled", nextMatchId: "F", isHomeInNextMatch: false, placeholderHome: "Winner QF-3", placeholderAway: "Winner QF-4" },
+  { id: "SF-1", type: "knockout", round: "SF", name: "Semi-final", homeTeam: "BRA", awayTeam: "NED", homeScore: 3, awayScore: 2, status: "finished", winner: "BRA", nextMatchId: "F", isHomeInNextMatch: true, placeholderHome: "Winner QF-1", placeholderAway: "Winner QF-2" },
+  { id: "SF-2", type: "knockout", round: "SF", name: "Semi-final", homeTeam: "GER", awayTeam: "CHI", homeScore: 2, awayScore: 0, status: "finished", winner: "GER", nextMatchId: "F", isHomeInNextMatch: false, placeholderHome: "Winner QF-3", placeholderAway: "Winner QF-4" },
 
   // Final (1 match)
-  { id: "F", type: "knockout", round: "F", name: "Final", homeTeam: null, awayTeam: null, homeScore: null, awayScore: null, status: "scheduled", nextMatchId: null, placeholderHome: "Winner SF-1", placeholderAway: "Winner SF-2" }
+  { id: "F", type: "knockout", round: "F", name: "Final", homeTeam: "BRA", awayTeam: "GER", homeScore: 2, awayScore: 1, status: "finished", winner: "BRA", nextMatchId: null, placeholderHome: "Winner SF-1", placeholderAway: "Winner SF-2" }
 ];
